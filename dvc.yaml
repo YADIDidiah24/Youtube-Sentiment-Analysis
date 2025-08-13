@@ -23,38 +23,38 @@ stages:
 
 
   
-  # model_building:
-  #   cmd: python src/model/model_building.py
-  #   deps:
-  #   - data/interim/train_processed.csv
-  #   - src/model/model_building.py
-  #   params:
-  #   - model_building.max_features
-  #   - model_building.ngram_range
-  #   - model_building.learning_rate
-  #   - model_building.max_depth
-  #   - model_building.n_estimators
-  #   outs:
-  #   - lgbm_model.pkl
-  #   - tfidf_vectorizer.pkl
+  model_building:
+    cmd: python model/builder.py
+    deps:
+      - data/interim/train_processed.csv
+      - model/builder.py
+    params:
+      - model_building.max_features
+      - model_building.ngram_range
+      - model_building.learning_rate
+      - model_building.max_depth
+      - model_building.n_estimators
+    outs:
+      - models/lgbm_model.joblib
+      - models/tfidf_vectorizer.joblib
 
 
   
-  # model_evaluation:
-  #   cmd: python src/model/model_evaluation.py
-  #   deps:
-  #   - lgbm_model.pkl
-  #   - tfidf_vectorizer.pkl
-  #   - data/interim/train_processed.csv
-  #   - data/interim/test_processed.csv
-  #   - src/model/model_evaluation.py
-  #   outs:
-  #   - experiment_info.json
+  model_evaluation:
+    cmd: python model/evaluator.py
+    deps:
+      - models/lgbm_model.joblib        # ✅ Fixed path and extension
+      - models/tfidf_vectorizer.joblib  # ✅ Fixed path and extension  
+      - data/interim/train_processed.csv
+      - data/interim/test_processed.csv  # Make sure this file exists
+      - model/evaluator.py
+    outs:
+      - experiment_info.json
 
 
   
-  # model_registration:
-  #   cmd: python src/model/register_model.py
-  #   deps:
-  #   - experiment_info.json
-  #   - src/model/register_model.py
+  model_registration:
+    cmd: python model/register.py
+    deps:
+      - experiment_info.json
+      - model/register.py

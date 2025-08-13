@@ -9,8 +9,8 @@ stages:
       size: 4191
     - path: params.yaml
       hash: md5
-      md5: 5c06242dd9d613d8b517d07ced2a3a4b
-      size: 161
+      md5: 9d5c291267771b448809bbf38a7c35a6
+      size: 160
     params:
       params.yaml:
         data_ingestion.test_size: 0.2
@@ -44,3 +44,71 @@ stages:
       md5: ba42408e7bd1e85685474d6a349ae57e.dir
       size: 5134850
       nfiles: 2
+  model_building:
+    cmd: python model/builder.py
+    deps:
+    - path: data/interim/train_processed.csv
+      hash: md5
+      md5: 35027dfda8274bd9356544f2ff358aa4
+      size: 4134324
+    - path: model/builder.py
+      hash: md5
+      md5: 0c535b4b746d9fa67af3d7bca4de2da1
+      size: 12167
+    params:
+      params.yaml:
+        model_building.learning_rate: 0.09
+        model_building.max_depth: 10
+        model_building.max_features: 100
+        model_building.n_estimators: 100
+        model_building.ngram_range:
+        - 1
+        - 2
+    outs:
+    - path: models/lgbm_model.joblib
+      hash: md5
+      md5: 72b3c2d488848b4d705a73e3e8b5d084
+      size: 955516
+    - path: models/tfidf_vectorizer.joblib
+      hash: md5
+      md5: 69bcb36864a303f4e83744710ca1a01c
+      size: 4402
+  model_evaluation:
+    cmd: python model/evaluator.py
+    deps:
+    - path: data/interim/test_processed.csv
+      hash: md5
+      md5: 4f30375397ec89fead1745ee6d70f201
+      size: 1000526
+    - path: data/interim/train_processed.csv
+      hash: md5
+      md5: 35027dfda8274bd9356544f2ff358aa4
+      size: 4134324
+    - path: model/evaluator.py
+      hash: md5
+      md5: 54b463746df128bdd5fce67db0ec7c69
+      size: 10301
+    - path: models/lgbm_model.joblib
+      hash: md5
+      md5: 72b3c2d488848b4d705a73e3e8b5d084
+      size: 955516
+    - path: models/tfidf_vectorizer.joblib
+      hash: md5
+      md5: 69bcb36864a303f4e83744710ca1a01c
+      size: 4402
+    outs:
+    - path: experiment_info.json
+      hash: md5
+      md5: 188ac66255187593f265ba5d13a476dd
+      size: 657
+  model_registration:
+    cmd: python model/register.py
+    deps:
+    - path: experiment_info.json
+      hash: md5
+      md5: c765e9d603661355af87407cd1c10bf0
+      size: 896
+    - path: model/register.py
+      hash: md5
+      md5: a4bb2304f048e91e7f010caa2364826a
+      size: 8698

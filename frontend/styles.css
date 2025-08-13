@@ -1,0 +1,130 @@
+:root {
+  --primary-color: #0099ff;
+  --secondary-color: #f1f1f1;
+  --dark-color: #1e1e1e;
+  --light-color: #ffffff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--dark-color);
+  color: var(--secondary-color);
+}
+
+header {
+  background-color: var(--primary-color);
+  padding: 1rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+}
+
+nav a {
+  color: var(--light-color);
+  text-decoration: none;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+#video-section, #stats-section {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 2rem;
+}
+
+#player {
+  width: 100%;
+  height: 450px;
+  background-color: #000;
+}
+
+#video-info {
+  display: flex;
+  margin-top: 1rem;
+}
+
+#video-url {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+#fetch-comments {
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border: none;
+  cursor: pointer;
+}
+
+footer {
+  background-color: var(--primary-color);
+  padding: 1rem;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 15px;
+}
+
+.section-title {
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.metrics-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.metric {
+  width: 48%;
+  background-color: #444;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.metric-title {
+  font-size: 12px;
+  color: #cccccc;
+}
+
+.metric-value {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--light-color);
+  margin-top: 5px;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comment-item {
+  margin: 8px 0;
+  padding: 8px;
+  background-color: #444;
+  border-radius: 4px;
+}
+
+.comment-sentiment {
+  font-weight: bold;
+  color: var(--light-color);
+}
